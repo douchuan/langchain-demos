@@ -4,15 +4,21 @@ A hands-on collection of runnable examples covering LangChain and LangGraph fund
 
 ## Quick Start
 
-1. Create a `.env` file with your API credentials:
-   ```
-   API_KEY=your_api_key
-   LLM_MODEL=your_model_name
-   LLM_MODEL2=your_advanced_model_name
-   BASE_URL=your_api_base_url
-   ```
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run any example: `python src/course1/001agent.py`
+```bash
+# Install dependencies
+uv sync
+
+# Run any example
+uv run python src/course1/001agent.py
+```
+
+Before running, create a `.env` file:
+```
+API_KEY=your_api_key
+LLM_MODEL=your_model_name
+LLM_MODEL2=your_advanced_model_name
+BASE_URL=your_api_base_url
+```
 
 ## Course List
 
