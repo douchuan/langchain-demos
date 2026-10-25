@@ -9,3 +9,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+sample_data.csv
+sample_doc.txt

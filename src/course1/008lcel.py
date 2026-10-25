@@ -7,8 +7,8 @@ LCEL is the core compositional paradigm in modern LangChain.
 """
 
 from langchain.chat_models import init_chat_model
-from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import (
     RunnableLambda,
     RunnableParallel,
@@ -16,6 +16,7 @@ from langchain_core.runnables import (
 )
 
 from utils.config import load_settings
+from utils.debug import DebugPromptHandler
 
 # Load environment variables from .env file and application settings
 settings = load_settings()
@@ -68,7 +69,8 @@ chain_with_passthrough = (
 response = chain_with_passthrough.invoke(
     {
         "question": "How does it work?",
-    }
+    },
+    config={"callbacks": [DebugPromptHandler()]},
 )
 print("\n=== Example 2: RunnablePassthrough ===")
 print(response)
@@ -90,7 +92,9 @@ chain_parallel = RunnableParallel(
     }
 )
 
-results = chain_parallel.invoke({"topic": "Python programming"})
+results = chain_parallel.invoke(
+    {"topic": "Python programming"}, config={"callbacks": [DebugPromptHandler()]}
+)
 print("\n=== Example 3: RunnableParallel ===")
 print(f"Joke: {results['joke']}")
 print(f"Fact: {results['fact']}")
@@ -134,6 +138,8 @@ rag_chain = (
     | StrOutputParser()
 )
 
-response = rag_chain.invoke("What are the benefits of exercise?")
+response = rag_chain.invoke(
+    "What are the benefits of exercise?", config={"callbacks": [DebugPromptHandler()]}
+)
 print("\n=== Example 5: RAG-style Chain ===")
 print(response)

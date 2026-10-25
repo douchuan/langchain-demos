@@ -8,10 +8,6 @@ and split them into chunks suitable for embedding in a RAG pipeline.
 from pathlib import Path
 
 from langchain.chat_models import init_chat_model
-from langchain.text_splitter import (
-    RecursiveCharacterTextSplitter,
-    TokenTextSplitter,
-)
 from langchain_community.document_loaders import (
     CSVLoader,
     TextLoader,
@@ -19,6 +15,7 @@ from langchain_community.document_loaders import (
 from langchain_community.vectorstores import FAISS
 from langchain_core.tools import create_retriever_tool
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter, TokenTextSplitter
 
 from utils.config import load_settings
 

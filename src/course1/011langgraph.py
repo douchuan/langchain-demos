@@ -11,8 +11,8 @@ from collections.abc import Sequence
 from typing import Annotated, Literal
 
 from langchain.chat_models import init_chat_model
-from langchain.messages import AIMessage, BaseMessage, HumanMessage
 from langchain.tools import tool
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from langgraph.graph import END, StateGraph
 from langgraph.prebuilt import ToolNode
 from typing_extensions import TypedDict

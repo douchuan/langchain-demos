@@ -100,8 +100,8 @@ with get_openai_callback() as cb:
 # Cache model responses to avoid redundant API calls
 print("\n=== Example 3: LLM Caching ===")
 
-from langchain.globals import set_llm_cache
 from langchain_community.cache import InMemoryCache
+from langchain_core.globals import set_llm_cache
 
 # Enable in-memory caching (resets when the process restarts)
 set_llm_cache(InMemoryCache())
@@ -129,11 +129,3 @@ print(f"  Took {time.time() - start:.3f}s: {result3.content[:50]}...")
 
 # Disable cache for subsequent calls
 set_llm_cache(None)
-
-# --- Example 4: SQLite Cache (persistent across restarts) ---
-# Uncomment to use persistent file-based caching
-# from langchain_community.cache import SQLiteCache
-# set_llm_cache(SQLiteCache(database_path=".langchain_cache.db"))
-print("\n=== Example 4: SQLite Cache (conceptual) ===")
-print("SQLiteCache persists responses across process restarts.")
-print("Usage: set_llm_cache(SQLiteCache(database_path='.langchain_cache.db'))")

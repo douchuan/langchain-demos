@@ -7,13 +7,14 @@ This is the foundational building block for constructing prompts in LangChain.
 """
 
 from langchain.chat_models import init_chat_model
-from langchain.prompts import (
+from langchain_core.prompts import (
     ChatPromptTemplate,
     FewShotChatMessagePromptTemplate,
     MessagesPlaceholder,
 )
 
 from utils.config import load_settings
+from utils.debug import DebugPromptHandler
 
 # Load environment variables from .env file and application settings
 settings = load_settings()
@@ -42,8 +43,9 @@ response = chain.invoke(
     {
         "topic": "programming",
         "concept": "list comprehension",
-        "language": "Chinese",
-    }
+        "language": "English",
+    },
+    config={"callbacks": [DebugPromptHandler()]},
 )
 print("=== Example 1: Simple Template ===")
 print(response.content)
@@ -71,7 +73,8 @@ response = chain_with_history.invoke(
     {
         "history": history,
         "input": "What are its main use cases?",
-    }
+    },
+    config={"callbacks": [DebugPromptHandler()]},
 )
 print("\n=== Example 2: Template with History ===")
 print(response.content)
@@ -111,6 +114,8 @@ final_prompt = ChatPromptTemplate.from_messages(
 )
 
 chain_few_shot = final_prompt | model
-response = chain_few_shot.invoke({"word": "Ecstatic"})
+response = chain_few_shot.invoke(
+    {"word": "Ecstatic"}, config={"callbacks": [DebugPromptHandler()]}
+)
 print("\n=== Example 3: Few-Shot Prompting ===")
 print(response.content)

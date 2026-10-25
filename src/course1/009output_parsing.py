@@ -6,13 +6,13 @@ Shows how to enforce a specific output format from the model using parsers
 and format instructions injected into the prompt.
 """
 
-
 from langchain.chat_models import init_chat_model
-from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser, PydanticOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 
 from utils.config import load_settings
+from utils.debug import DebugPromptHandler
 
 # Load environment variables from .env file and application settings
 settings = load_settings()
@@ -54,7 +54,9 @@ prompt = ChatPromptTemplate.from_messages(
 ).partial(format_instructions=parser.get_format_instructions())
 
 chain = prompt | model | parser
-review = chain.invoke({"movie": "The Matrix"})
+review = chain.invoke(
+    {"movie": "The Matrix"}, config={"callbacks": [DebugPromptHandler()]}
+)
 print("=== Example 1: PydanticOutputParser ===")
 print(f"Title: {review.title}")
 print(f"Rating: {review.rating}")

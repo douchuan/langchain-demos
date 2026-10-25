@@ -13,9 +13,11 @@ dependencies = [
     "langchain-faiss>=0.1.1",
     "langchain-huggingface>=1.2.3",
     "langchain-openai>=1.7.2",
+    "langchain-text-splitters>=1.1.3",
     "langchain[openai]>=1.4.7",
     "langgraph>=1.2.17",
     "python-dotenv>=1.2.4",
+    "rich>=15.0.0",
     "sentence-transformers>=6.2.0",
 ]
 
